@@ -29,14 +29,12 @@ void testForDivision() {
 void testForModulo() {
 	ASSERT_EQUAL(1, calc(9,2,'%'));
 	ASSERT_EQUAL(2, calc(11,3,'%'));
-
 }
-void testForInvalidArguments() {
 
+void testForInvalidArguments() {
 	ASSERT_THROWSM("division by zero", calc(9,0,'/'), std::invalid_argument );
 	ASSERT_THROWSM("modulo by zero", calc(9,0,'%'), std::invalid_argument );
 	ASSERT_THROWSM("not a valid operator ?", calc(9,0,'?'), std::invalid_argument );
-
 }
 
 void testInputStream() {
