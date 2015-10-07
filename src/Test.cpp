@@ -4,6 +4,7 @@
 #include "xml_listener.h"
 #include "cute_runner.h"
 #include <iostream>
+#include <string>
 
 
 void testForAddition() {
@@ -38,6 +39,24 @@ void testForInvalidArguments() {
 
 }
 
+void testInputStream() {
+	std::istringstream in{};
+
+	in.str("4 % 3");
+	ASSERT_EQUAL(1, calc(in));
+
+	in.clear();
+	in.str("54 + 13");
+	ASSERT_EQUAL(67, calc(in));
+
+	in.clear();
+	in.str("13- 20");
+	ASSERT_EQUAL(-7, calc(in));
+	std::string s = {"-7"};
+	ASSERT_EQUAL(s, std::to_string(-7));
+
+}
+
 void runAllTests(int argc, char const *argv[]){
 	cute::suite s;
 	s.push_back(CUTE(testForAddition));
@@ -46,6 +65,7 @@ void runAllTests(int argc, char const *argv[]){
 	s.push_back(CUTE(testForDivision));
 	s.push_back(CUTE(testForInvalidArguments));
 	s.push_back(CUTE(testForModulo));
+	s.push_back(CUTE(testInputStream));
 	cute::xml_file_opener xmlfile(argc,argv);
 	cute::xml_listener<cute::ide_listener<> >  lis(xmlfile.out);
 	cute::makeRunner(lis,argc,argv)(s, "AllTests");
